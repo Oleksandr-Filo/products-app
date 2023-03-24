@@ -1,0 +1,21 @@
+@import '../../../base_styles/variables';
+
+.nav__link {
+  display: block;
+  padding: 24px 16px;
+
+  text-decoration: none;
+  color: $secondaryColor;
+
+  transition: background-color $transitionSettings, color $transitionSettings;
+
+  &:hover {
+    color: $primaryColor;
+    background-color: $hoverColor;
+  }
+}
+
+.active {
+  color: $primaryColor;
+  background-color: $activeColor;
+}

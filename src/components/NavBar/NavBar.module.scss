@@ -1,0 +1,13 @@
+@import '../../base_styles/variables';
+
+.nav {
+  padding: 0 32px;
+
+  background-color: $whiteColor;
+  box-shadow: 0 1px 0 $secondaryColor;
+
+  &__list {
+    display: flex;
+    gap: 24px;
+  }
+}
