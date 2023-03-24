@@ -1,10 +1,17 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import './App.scss';
 
 export const App: React.FC = () => {
   return (
     <div className="App">
-      <h1>Products app</h1>
+      <header>
+        <p>Future header</p>
+      </header>
+
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 };
