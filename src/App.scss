@@ -1,3 +1,10 @@
+@import './base_styles/normalize';
+@import './base_styles/reset';
+
+iframe {
+  display: none;
+}
+
 .App {
-  text-align: center;
+  font-family: Arial, sans-serif;
 }
