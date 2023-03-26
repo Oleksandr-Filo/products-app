@@ -9,9 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Product } from '../../types/Product';
 import { tableColumns } from './ProductsTebleColumns';
 import { useSetSortParams } from '../../hooks/useSetSortParams';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,12 +33,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-interface Props {
-  productsList: Product[];
-}
-
-export const ProductsTable: React.FC<Props> = React.memo(({ productsList }) => {
+export const ProductsTable: React.FC = () => {
   const [sortBy, direction, setSortParams] = useSetSortParams();
+  const { products } = useAppSelector(state => state.products);
 
   return (
     <TableContainer component={Paper}>
@@ -62,7 +59,7 @@ export const ProductsTable: React.FC<Props> = React.memo(({ productsList }) => {
         </TableHead>
 
         <TableBody>
-          {productsList.map((product) => (
+          {products.map((product) => (
             <StyledTableRow key={product.id}>
               <StyledTableCell component="th" scope="row">
                 {product.id}
@@ -103,4 +100,4 @@ export const ProductsTable: React.FC<Props> = React.memo(({ productsList }) => {
       </Table>
     </TableContainer>
   );
-});
+};

@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../../api/products';
+import React, { useEffect } from 'react';
 import { FilterInput } from '../../components/FilterInput';
 import { Loader } from '../../components/Loader';
 import { ProductsTable } from '../../components/ProductsTable';
 import { Alert } from '@mui/material';
-import { Product } from '../../types/Product';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { loadProducts } from '../../features/productsSlice';
 import s from './ProductsPage.module.scss';
 
 export const ProductsPage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useAppDispatch();
+  const { isLoaded, hasError } = useAppSelector(state => state.products);
 
   useEffect(() => {
-    setIsLoading(true);
-
-    getAllProducts()
-      .then(setProducts)
-      .catch(e => setErrorMessage('Error was occured'))
-      .finally(() => {
-        setIsLoading(false);
-        setIsDataLoaded(true);
-      });
+    dispatch(loadProducts());
   }, []);
 
   return (
@@ -31,20 +21,20 @@ export const ProductsPage: React.FC = () => {
 
       <FilterInput />
 
-      {isLoading && <Loader />}
+      {!isLoaded && <Loader />}
 
-      {isDataLoaded && !isLoading && (
-        <ProductsTable productsList={products} />
+      {isLoaded && !hasError && (
+        <ProductsTable />
       )}
 
-      {!!errorMessage && (
+      {hasError && (
         <Alert
           severity="error"
           sx={{
             mt: 1,
           }}
         >
-          {errorMessage}
+          Error was occurred
         </Alert>
       )}
     </>
