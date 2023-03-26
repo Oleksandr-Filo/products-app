@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllProducts } from '../../api/products';
+import { ProductsTable } from '../../components/ProductsTable';
 import { Product } from '../../types/Product';
 
 export const ProductsPage: React.FC = () => {
@@ -14,15 +15,7 @@ export const ProductsPage: React.FC = () => {
     <>
       <h1>Products page</h1>
 
-      <h2>Here will be products table</h2>
-
-      <ul>
-        {products.map(product => (
-          <li key={product.id}>
-            {product.title}
-          </li>
-        ))}
-      </ul>
+      <ProductsTable productsList={products} />
     </>
   );
 };
