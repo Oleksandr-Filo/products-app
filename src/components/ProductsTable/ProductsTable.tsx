@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Product } from '../../types/Product';
 import { tableColumns } from './ProductsTebleColumns';
+import { useSetSortParams } from '../../hooks/useSetSortParams';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,30 +33,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-type SortDirection = undefined | 'asc' | 'desc';
-
 interface Props {
   productsList: Product[];
 }
 
 export const ProductsTable: React.FC<Props> = React.memo(({ productsList }) => {
-  const [sortBy, setSortBy] = useState('');
-  const [direction, setDirection] = useState<SortDirection>();
-
-  const setSortParams = (columnTitle: string) => {
-    if (sortBy !== columnTitle) {
-      setDirection('asc');
-      setSortBy(columnTitle);
-    }
-    
-    if (sortBy === columnTitle && direction === 'asc') {
-      setDirection('desc');
-    }
-
-    if (sortBy === columnTitle && direction === 'desc') {
-      setSortBy('');
-    }
-  };
+  const [sortBy, direction, setSortParams] = useSetSortParams();
 
   return (
     <TableContainer component={Paper}>
