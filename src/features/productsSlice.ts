@@ -4,12 +4,14 @@ import { Product } from '../types/Product';
 import { getAllProducts } from '../api/products';
 
 interface ProductsState {
+  loadedProducts: Product[];
   products: Product[];
   isLoaded: boolean;
   hasError: boolean;
 }
 
 const initialState: ProductsState = {
+  loadedProducts: [],
   products: [],
   isLoaded: false,
   hasError: false,
@@ -27,7 +29,18 @@ export const loadProducts = createAsyncThunk(
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {},
+  reducers: {
+    filterByQuery: (state, action: PayloadAction<string>) => {
+      state.products = state.loadedProducts.filter(product => {
+        const normalizedQuery = action.payload
+          .toLowerCase();
+  
+        const stringToCheck = `${product.title} ${product.category}`.toLowerCase();
+
+        return stringToCheck.includes(normalizedQuery);
+      })
+    },
+  },
   extraReducers(builder) {
     builder.addCase(loadProducts.pending, (state) => {
       state.isLoaded = false;
@@ -37,6 +50,7 @@ export const productsSlice = createSlice({
       loadProducts.fulfilled,
       (state, action: PayloadAction<Product[]>) => {
         state.isLoaded = true;
+        state.loadedProducts = action.payload;
         state.products = action.payload;
       },
     );
@@ -49,3 +63,4 @@ export const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
+export const { filterByQuery } = productsSlice.actions;
