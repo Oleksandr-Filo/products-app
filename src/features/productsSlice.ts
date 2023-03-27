@@ -30,11 +30,37 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    updateProduct: (state, action: PayloadAction<[number, Partial<Product>]>) => {
+      const [id, data] = action.payload;
+      const productIndex = state.products.findIndex(product =>
+        product.id === id,
+      );
+
+      state.products = state.products.map((product, i) => (
+        i === productIndex
+          ? Object.assign(product, data)
+          : product
+      ));
+
+      state.loadedProducts = state.loadedProducts.map((product, i) => (
+        i === productIndex
+          ? Object.assign(product, data)
+          : product
+      ));
+    },
+    deleteOne: (state, action: PayloadAction<number>) => {
+      state.products = state.products.filter(product =>
+        product.id !== action.payload,
+      );
+      state.loadedProducts = state.loadedProducts.filter(product =>
+        product.id !== action.payload,
+      );
+    },
     filterByQuery: (state, action: PayloadAction<string>) => {
       state.products = state.loadedProducts.filter(product => {
         const normalizedQuery = action.payload
           .toLowerCase();
-  
+
         const stringToCheck = `${product.title} ${product.category}`.toLowerCase();
 
         return stringToCheck.includes(normalizedQuery);
@@ -63,4 +89,4 @@ export const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { filterByQuery } = productsSlice.actions;
+export const { updateProduct, deleteOne, filterByQuery } = productsSlice.actions;

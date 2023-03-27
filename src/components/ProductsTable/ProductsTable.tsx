@@ -8,11 +8,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { tableColumns } from './ProductsTebleColumns';
 import { useSetSortParams } from '../../hooks/useSetSortParams';
-import { useAppSelector } from '../../hooks/reduxHooks';
+import {  useAppSelector } from '../../hooks/reduxHooks';
 import { sortProducts } from '../../helpers/sortProducts';
+import { ProductsTableRow } from './ProductsTableRow';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -21,16 +21,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
   },
 }));
 
@@ -66,41 +56,7 @@ export const ProductsTable: React.FC = () => {
 
         <TableBody>
           {visibleProducts.map((product) => (
-            <StyledTableRow key={product.id}>
-              <StyledTableCell component="th" scope="row">
-                {product.id}
-              </StyledTableCell>
-
-              <StyledTableCell>{product.title}</StyledTableCell>
-              <StyledTableCell>{product.description}</StyledTableCell>
-              <StyledTableCell align="center">{product.price}</StyledTableCell>
-
-              <StyledTableCell align="center">
-                <a href={product.thumbnail} target="_blank" rel="noreferrer" >
-                  <img src={product.thumbnail} alt="product" height="24px" />
-                </a>
-              </StyledTableCell>
-
-              <StyledTableCell align="center">{product.rating}</StyledTableCell>
-              <StyledTableCell align="center">{product.stock}</StyledTableCell>
-              <StyledTableCell align="center">{product.category}</StyledTableCell>
-
-              <StyledTableCell align="center">
-                <DeleteForeverIcon
-                  sx={[
-                    {
-                      transition: 'color 0.3s',
-                    },
-                    {
-                      '&:hover': {
-                        color: 'red',
-                        cursor: 'pointer',
-                      },
-                    },
-                  ]}
-                />
-              </StyledTableCell>
-            </StyledTableRow>
+            <ProductsTableRow product={product} key={product.id} />
           ))}
         </TableBody>
       </Table>
