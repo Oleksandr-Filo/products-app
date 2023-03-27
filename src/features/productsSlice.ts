@@ -41,7 +41,7 @@ export const productsSlice = createSlice({
       })
     },
   },
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder.addCase(loadProducts.pending, (state) => {
       state.isLoaded = false;
     });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,6 +12,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { tableColumns } from './ProductsTebleColumns';
 import { useSetSortParams } from '../../hooks/useSetSortParams';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import { sortProducts } from '../../helpers/sortProducts';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,7 +36,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export const ProductsTable: React.FC = () => {
   const [sortBy, direction, setSortParams] = useSetSortParams();
+
   const { products } = useAppSelector(state => state.products);
+
+  const visibleProducts = useMemo(() => {
+    return sortProducts(products, sortBy, direction);
+  }, [products, sortBy, direction]);
 
   return (
     <TableContainer component={Paper}>
@@ -59,7 +65,7 @@ export const ProductsTable: React.FC = () => {
         </TableHead>
 
         <TableBody>
-          {products.map((product) => (
+          {visibleProducts.map((product) => (
             <StyledTableRow key={product.id}>
               <StyledTableCell component="th" scope="row">
                 {product.id}
