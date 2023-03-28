@@ -14,6 +14,8 @@ APP for managing products. In this APP you are able to:
 - sort products by each column;
 <br />
 
+https://user-images.githubusercontent.com/115103012/228334851-250dcd1e-6cc3-4622-adc3-8a329226b621.mp4
+
 ## Technologies used:
 <a href="https://uk.reactjs.org/">
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="48"/>
@@ -52,7 +54,7 @@ SCSS;
 BEM;
 
 <a href="https://formik.org/">
-  <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fstackshare.io%2Fformik&psig=AOvVaw34BS_w_uTZ5gcxyVI_wIfM&ust=1680112300461000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJi47ZiY__0CFQAAAAAdAAAAABAE" height="48"/>
+  <img src="https://static-00.iconduck.com/assets.00/formik-icon-512x512-se1fegy1.png" height="48"/>
 </a> 
 
 Formik + Yup;
