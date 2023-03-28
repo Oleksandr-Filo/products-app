@@ -4,7 +4,6 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { deleteOne } from '../../../features/productsSlice';
-
 import { Product } from '../../../types/Product';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import { EditingForm } from '../EditingForm';
@@ -91,12 +90,15 @@ export const ProductsTableRow: React.FC<Props> = React.memo(({ product }) => {
       </StyledTableCell>
 
       <StyledTableCell align="center">
-        <a href={product.thumbnail} target="_blank" rel="noreferrer" >
-          <img src={product.thumbnail} alt="product" height="24px" />
-        </a>
+        {product.thumbnail
+          ? (
+            <a href={product.thumbnail} target="_blank" rel="noreferrer" >
+              <img src={product.thumbnail} alt="product" height="24px" />
+            </a>
+          ) : 'No photo'}
       </StyledTableCell>
 
-      <StyledTableCell align="center" >
+      <StyledTableCell align="center">
         {product.rating}
       </StyledTableCell>
 

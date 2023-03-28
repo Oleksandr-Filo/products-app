@@ -1,11 +1,29 @@
 import React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AddProductForm } from '../../components/AddProductForm';
 
-export const ProductAddPage: React.FC = () => {
+const theme = createTheme();
+
+export const ProductAddPage: React.FC = React.memo(() => {
   return (
-    <>
-      <h1>Form to add new product</h1>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <h1>Product add form</h1>
 
-      <h2>Here will be a form</h2>
-    </>
+          <AddProductForm />
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
-};
+});

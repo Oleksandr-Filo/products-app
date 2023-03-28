@@ -77,6 +77,6 @@ export const sortProducts = (
 
       default:
         return 0;
-    }
+    };
   });
 };

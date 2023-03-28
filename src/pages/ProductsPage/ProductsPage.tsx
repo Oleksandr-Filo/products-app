@@ -6,12 +6,22 @@ import { Alert } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { loadProducts } from '../../features/productsSlice';
 import s from './ProductsPage.module.scss';
+import { setIsDataLoaded } from '../../features/isDataLoadedSlice';
 
-export const ProductsPage: React.FC = () => {
+export const ProductsPage: React.FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const { isLoaded, hasError } = useAppSelector(state => state.products);
+  const { isDataLoaded } = useAppSelector(state => state.isDataLoaded);
 
   useEffect(() => {
+    if (!isDataLoaded) {
+      dispatch(setIsDataLoaded(true));
+    }
+
+    if (isDataLoaded) {
+      return;
+    }
+
     dispatch(loadProducts());
   }, []);
 
@@ -39,4 +49,4 @@ export const ProductsPage: React.FC = () => {
       )}
     </>
   );
-};
+});

@@ -17,6 +17,13 @@ const initialState: ProductsState = {
   hasError: false,
 };
 
+type NewProductData = Pick<Product, 'title'
+  | 'description'
+  | 'price'
+  | 'rating'
+  | 'stock'
+  | 'category'>;
+
 export const loadProducts = createAsyncThunk(
   'products/fetch',
   async () => {
@@ -30,6 +37,21 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    addProduct: (state, action: PayloadAction<NewProductData>) => {
+      const currentIds = state.products.map(product => product.id);
+      const newId = Math.max(...currentIds) + 1;
+      const newProduct: Product = {
+        id: newId,
+        ...action.payload,
+        discountPercentage: 0,
+        brand: '',
+        thumbnail: '',
+        images: [],
+      };
+      
+      state.products.push(newProduct);
+      state.loadedProducts.push(newProduct);
+    },
     updateProduct: (state, action: PayloadAction<[number, Partial<Product>]>) => {
       const [id, data] = action.payload;
       const productIndex = state.products.findIndex(product =>
@@ -89,4 +111,9 @@ export const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { updateProduct, deleteOne, filterByQuery } = productsSlice.actions;
+export const {
+  addProduct,
+  updateProduct,
+  deleteOne,
+  filterByQuery,
+} = productsSlice.actions;

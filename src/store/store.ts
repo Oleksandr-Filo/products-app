@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import productsReducer from '../features/productsSlice';
+import isDataLoadedReducer from '../features/isDataLoadedSlice';
 
 export const store = configureStore({
   reducer: {
     products: productsReducer,
+    isDataLoaded: isDataLoadedReducer,
   },
 });
 
