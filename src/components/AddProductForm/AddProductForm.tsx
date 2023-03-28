@@ -10,6 +10,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { addProduct } from '../../features/productsSlice';
+import toast from 'react-hot-toast';
 
 const primaryColor = '#313237';
 
@@ -53,6 +54,13 @@ export const AddProductForm: React.FC = () => {
       setSubmitting(false);
       setIsProductAdded(true);
       resetForm();
+      toast.loading(
+        'Redirecting to products page...',
+        {
+          duration: 1500,
+          style: { backgroundColor: 'lightgreen' },
+        },
+      );
       setTimeout(() => {
         navigate('/');
       }, 1500);
