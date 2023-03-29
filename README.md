@@ -9,7 +9,7 @@ APP for managing products. In this APP you are able to:
 - load products from API;
 - add new product;
 - delete an existing one;
-- update an existing one (change title / description / price / stock / category);
+- update an existing one (just double click on table cell content and change title / description / price / stock / category);
 - filter products by title or category;
 - sort products by each column;
 <br />
